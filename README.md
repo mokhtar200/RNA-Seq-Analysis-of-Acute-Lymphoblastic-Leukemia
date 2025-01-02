@@ -1,7 +1,7 @@
 #DEMO Project: RNA-Seq Analysis of Acute Lymphoblastic Leukemia (ALL) Sample TARGET-10-PARPNM-09A-01R
 
-## Project Overview
-This project performs RNA-Seq analysis of the acute lymphoblastic leukemia (ALL) sample **TARGET-10-PARPNM-09A-01R**. The primary goal is to investigate the gene expression profile of this leukemia sample, identify differentially expressed genes (DEGs), and perform gene fusion detection. The data are obtained from the Illumina HiSeq 2000 platform.
+Project Overview
+This project conducts a comprehensive RNA-Seq analysis of the acute lymphoblastic leukemia (ALL) sample TARGET-10-PARPNM-09A-01R. The goal is to investigate the gene expression profile of this leukemia sample, identifying differentially expressed genes (DEGs), gene fusions, and enriched biological pathways.
 
 ## Objectives
 - **Preprocess** the raw RNA-Seq data (FASTQ files) using FastQC and trimming.
