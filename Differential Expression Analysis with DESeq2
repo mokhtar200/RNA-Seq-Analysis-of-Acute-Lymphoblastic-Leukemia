@@ -1,0 +1,39 @@
+# Load required libraries
+library(DESeq2)
+library(ggplot2)
+
+# Load the count data
+count_data <- read.table("gene_counts.txt", header = TRUE, row.names = 1)
+col_data <- data.frame(
+  condition = c("Leukemia", "Control"), 
+  row.names = colnames(count_data)
+)
+
+# Create DESeqDataSet
+dds <- DESeqDataSetFromMatrix(countData = count_data, colData = col_data, design = ~ condition)
+
+# Perform DESeq analysis
+dds <- DESeq(dds)
+
+# Get results (DEGs)
+res <- results(dds)
+
+# Filter results for significance (adjusted p-value < 0.05)
+res_sig <- res[which(res$padj < 0.05),]
+
+# Save results to file
+write.csv(res_sig, "differentially_expressed_genes.csv")
+
+# Plot MA-plot
+ma_plot <- plotMA(res, main = "MA-Plot", ylim = c(-5, 5))
+ggsave("ma_plot.png", ma_plot)
+
+# Plot Volcano plot
+volcano_data <- as.data.frame(res)
+volcano_data$significant <- ifelse(volcano_data$padj < 0.05, "Yes", "No")
+ggplot(volcano_data, aes(x = log2FoldChange, y = -log10(padj), color = significant)) +
+  geom_point() +
+  theme_minimal() +
+  labs(x = "Log2 Fold Change", y = "-Log10 Adjusted P-value", title = "Volcano Plot") +
+  scale_color_manual(values = c("No" = "grey", "Yes" = "red"))
+ggsave("volcano_plot.png")
